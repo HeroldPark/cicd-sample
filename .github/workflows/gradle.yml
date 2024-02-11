@@ -52,7 +52,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: cicd-sample                       # 업로드할 아티팩트의 이름을 지정합니다.
+      #  name: cicd-sample                       # 업로드할 아티팩트의 이름을 지정합니다.
         path: build/libs/cicd-sample-1.0.0.jar  # 업로드할 파일 또는 디렉토리의 경로를 지정합니다.
 
   dependency-submission:
