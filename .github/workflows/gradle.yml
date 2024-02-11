@@ -80,6 +80,8 @@ jobs:
       #  uses: webfactory/ssh-agent@v0.5.4
       #  with:
       #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: sshpass 설치
+        run: sudo apt-get install -y sshpass
       - name: Deploy to Server
         run: |
           sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no -r cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/shanepark
