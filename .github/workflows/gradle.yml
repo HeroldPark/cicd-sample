@@ -80,8 +80,9 @@ jobs:
       #  uses: webfactory/ssh-agent@v0.5.4
       #  with:
       #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: SCP transfer
-        run: scp *.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/cicd
+      - name: Deploy to Server
+        run: |
+          sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no -r cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/shanepark
       - name: Execute remote commands
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
