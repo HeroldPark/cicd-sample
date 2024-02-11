@@ -46,9 +46,9 @@ jobs:
     #
     - name: Build with Gradle 8.5
       run: gradle build
-       artifacts:
-          paths:
-            - build/libs/cicd-sample-1.0.0.jar
+      #artifacts:
+      #    paths:
+      #      - build/libs/cicd-sample-1.0.0.jar
 
   dependency-submission:
 
@@ -79,6 +79,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: cicd-sample
+          paths:
+            build/libs/cicd-sample-1.0.0.jar
+            
       #- name: Setup SSH
       #  uses: webfactory/ssh-agent@v0.5.4
       #  with:
