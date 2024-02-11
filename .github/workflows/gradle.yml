@@ -95,3 +95,7 @@ jobs:
     - name: Deploy to AWS EC2
       run: |
         scp -o StrictHostKeyChecking=no build/libs/cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/ec2-user
+        
+    - name: Execute remote command to start application
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "java -jar /home/ec2-user/cicd-sample-1.0.0.jar &"
