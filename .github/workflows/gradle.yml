@@ -79,7 +79,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: cicd-sample
-          paths:
+          path:
             build/libs/cicd-sample-1.0.0.jar
             
       #- name: Setup SSH
