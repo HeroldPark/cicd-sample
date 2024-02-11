@@ -79,25 +79,19 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: cicd-sample
-          path:
-            build/libs/cicd-sample-1.0.0.jar
-            
-      #- name: Setup SSH
-      #  uses: webfactory/ssh-agent@v0.5.4
-      #  with:
-      #    ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      
-      - name: sshpass 설치
-        run: sudo apt-get install -y sshpass
-      - name: Deploy to Server
-        run: |
-          sshpass -p ${{ secrets.SSH_PASSWORD }} scp -o StrictHostKeyChecking=no -r cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/shanepark
-      - name: Execute remote commands
-        run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp"
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo nohup java -jar ~/cicd/*.jar &"
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: cicd-sample
+        path: build/libs
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEYPAIR }}
+
+    - name: Deploy to AWS EC2
+      run: |
+        scp -o StrictHostKeyChecking=no build/libs/cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/ec2-user
