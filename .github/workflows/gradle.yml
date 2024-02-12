@@ -95,6 +95,10 @@ jobs:
     - name: Deploy to AWS EC2
       run: |
         scp -o StrictHostKeyChecking=no build/libs/cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/ec2-user
+
+    # Run chmod command
+    - name: Change file permissions
+      run: chmod +x /home/***/cicd-sample-1.0.0.jar
         
     - name: Execute remote command to start application
       run: |
