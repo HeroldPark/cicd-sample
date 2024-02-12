@@ -97,8 +97,13 @@ jobs:
         scp -o StrictHostKeyChecking=no build/libs/cicd-sample-1.0.0.jar ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/ec2-user
 
     # Run chmod command
-    - name: Change file permissions
-      run: chmod +x /home/ec2-user/cicd-sample-1.0.0.jar
+    - name: Check file existence before chmod
+      run: |
+        if [ -f "/home/ec2-user/cicd-sample-1.0.0.jar" ]; then
+          chmod +x /home/ec2-user/cicd-sample-1.0.0.jar
+        else
+          echo "File not found at /home/ec2-user/cicd-sample-1.0.0.jar"
+        fi
         
     - name: Execute remote command to start application
       run: |
