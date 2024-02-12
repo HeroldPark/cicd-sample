@@ -108,6 +108,6 @@ jobs:
         
     - name: Execute remote command to start application
       run: |
-        ssh -v ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo fuser -k 8080/tcp || true"
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo nohup java -jar /home/ec2-user/cicd-sample-1.0.0.jar > ~/nohup.log 2>&1 &"
+        ssh -v ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "ps -ef | grep cicd-sample | awk '{print $2}' | xargs kill || true"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "nohup java -jar /home/ec2-user/cicd-sample-1.0.0.jar > ~/nohup.log 2>&1 &"
 
