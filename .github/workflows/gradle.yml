@@ -98,7 +98,7 @@ jobs:
 
     # Run chmod command
     - name: Change file permissions
-      run: chmod +x /home/***/cicd-sample-1.0.0.jar
+      run: chmod +x /home/ec2-user/cicd-sample-1.0.0.jar
         
     - name: Execute remote command to start application
       run: |
