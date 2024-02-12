@@ -107,4 +107,5 @@ jobs:
         
     - name: Execute remote command to start application
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "nohup java -jar /home/ec2-user/cicd-sample-1.0.0.jar &"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "nohup java -jar /home/ec2-user/cicd-sample-1.0.0.jar >/dev/null 2>&1 &"
+
